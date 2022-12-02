@@ -2,11 +2,9 @@ package OOP;
 
 import OOP.Abstract.Base;
 import OOP.Characters.*;
-
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Vector;
+
 
 import static OOP.View.ConsoleView.view;
 
@@ -19,11 +17,8 @@ public class Main {
         while (true) {
             view();
             Scanner sc = new Scanner(System.in);
-            String st = sc.nextLine();
-            for (int i =0; i < 10; i++) {
-                whiteSide.get(i).step(darkSide);
-                darkSide.get(i).step(whiteSide);
-            }
+            sc.nextLine();
+            setPriority();
         }
     }
 
@@ -45,7 +40,6 @@ public class Main {
 
         x = 0;
         y = 9;
-
         for (int i = 0; i < 10; i++) {
             int randomNum = (int)(Math.random()*4);
             switch (randomNum) {
@@ -55,7 +49,32 @@ public class Main {
                 default -> darkSide.add(new Xbowman(whiteSide, x++, y));
             }
         }
-
-
     }
+
+    public static void setPriority() {
+        for (int i = 0; i < 10; i++) {
+            String clazz = whiteSide.get(i).getClass().toString();
+            if (clazz.contains("Sniper")) whiteSide.get(i).step(darkSide);
+            clazz = darkSide.get(i).getClass().toString();
+            if (clazz.contains("Xbowman")) darkSide.get(i).step(whiteSide);
+        }
+        for (int i = 0; i < 10; i++) {
+            String clazz = whiteSide.get(i).getClass().toString();
+            if (clazz.contains("Robber")) whiteSide.get(i).step(darkSide);
+            clazz = darkSide.get(i).getClass().toString();
+            if (clazz.contains("Spearman")) darkSide.get(i).step(whiteSide);
+        }
+        for (int i = 0; i < 10; i++) {
+            String clazz = whiteSide.get(i).getClass().toString();
+            if (clazz.contains("Monk")) whiteSide.get(i).step(darkSide);
+            clazz = darkSide.get(i).getClass().toString();
+            if (clazz.contains("Wizard")) darkSide.get(i).step(whiteSide);
+        }
+        for (int i = 0; i < 10; i++) {
+            String clazz = whiteSide.get(i).getClass().toString();
+            if (clazz.contains("Peasant")) whiteSide.get(i).step(darkSide);
+            if (clazz.contains("Peasant")) darkSide.get(i).step(whiteSide);
+        }
+    }
+
 }

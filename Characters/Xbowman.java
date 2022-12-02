@@ -3,9 +3,8 @@ package OOP.Characters;
 import OOP.Abstract.Base;
 import OOP.Abstract.Shooter;
 import OOP.Abstract.States;
-
 import java.util.ArrayList;
-import java.util.Vector;
+
 
 public class Xbowman extends Shooter {
     public Xbowman(ArrayList<Base> group, int x, int y) {
@@ -19,8 +18,5 @@ public class Xbowman extends Shooter {
     public String getInfo() {
         return super.getInfo();
     }
-    @Override
-    public void step(ArrayList<Base> group) {
 
-    }
 }

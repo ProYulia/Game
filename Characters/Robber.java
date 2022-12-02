@@ -3,9 +3,8 @@ package OOP.Characters;
 import OOP.Abstract.Base;
 import OOP.Abstract.States;
 import OOP.Abstract.Warrior;
-
 import java.util.ArrayList;
-import java.util.Vector;
+
 
 public class Robber extends Warrior {
 
@@ -17,10 +16,6 @@ public class Robber extends Warrior {
         super.position = new Position(x, y);
     }
 
-    @Override
-    public void step(ArrayList<Base> group) {
-
-    }
 
     @Override
     public String getInfo() {

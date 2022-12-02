@@ -1,11 +1,11 @@
 package OOP.View;
 
 import OOP.Abstract.Base;
+import OOP.Abstract.States;
 import OOP.Characters.Position;
 import OOP.Main;
-
 import java.util.Collections;
-import java.util.Vector;
+
 
 public class ConsoleView {
     private static final String TOP = "\u256d\u2500" +
@@ -44,10 +44,19 @@ public class ConsoleView {
     public static String getChar(Position position) {
         String str = "| ";
         for (int i = 0; i < 10; i++) {
-            if (Main.whiteSide.get(i).getPosition().isEqual(position))
-                str = AnsiColors.ANSI_BLUE + getFirstLetter(Main.whiteSide.get(i)) + AnsiColors.ANSI_RESET;
-            if (Main.darkSide.get(i).getPosition().isEqual(position))
-                str = "|" + AnsiColors.ANSI_GREEN + getFirstLetter(Main.darkSide.get(i)) + AnsiColors.ANSI_RESET + "|";
+            boolean alive = true;
+            if (Main.whiteSide.get(i).getPosition().isEqual(position)) {
+                if (Main.whiteSide.get(i).getState()==States.DEAD) {
+                    alive=false;
+                    str = AnsiColors.ANSI_RED + getFirstLetter(Main.whiteSide.get(i)) + AnsiColors.ANSI_RESET;
+                }
+                else str = AnsiColors.ANSI_BLUE + getFirstLetter(Main.whiteSide.get(i)) + AnsiColors.ANSI_RESET;
+            }
+            if (Main.darkSide.get(i).getPosition().isEqual(position) && alive) {
+                if (Main.darkSide.get(i).getState().equals(States.DEAD))
+                    str = "|" + AnsiColors.ANSI_RED + getFirstLetter(Main.darkSide.get(i)) + AnsiColors.ANSI_RESET + "|";
+                else str = "|" + AnsiColors.ANSI_GREEN + getFirstLetter(Main.darkSide.get(i)) + AnsiColors.ANSI_RESET + "|";
+            }
         }
         return str;
     }
@@ -63,7 +72,7 @@ public class ConsoleView {
         for (int i = 0; i < remainProcent; i++) {
             barDone.append(icon);
         }
-        String barRemain = bar.substring(remainProcent, bar.length());
+        String barRemain = bar.substring(remainProcent);
         return barDone+barRemain+" "+remainProcent*10+"%";
 
     }

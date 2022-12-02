@@ -2,10 +2,8 @@ package OOP.Abstract;
 
 import OOP.Characters.Position;
 import OOP.View.AnsiColors;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Vector;
+
 
 public abstract class Base implements BaseInterface {
     private int attack;
@@ -91,8 +89,11 @@ public abstract class Base implements BaseInterface {
     }
 
     protected void getAttack(Base hero) {
-        if (attack == hero.protection) hero.health -= (damage[0]+damage[1]/2);
+        if (attack == hero.protection && speed < position.getDist(hero.getPosition())) hero.health -=(damage[0]+damage[1])/4;
+        if (attack == hero.protection) hero.health -= (damage[0]+damage[1])/2;
+        if (attack > hero.protection && speed < position.getDist(hero.getPosition())) hero.health -= damage[1]/2;
         if (attack > hero.protection) hero.health -= damage[1];
+        if (attack < hero.protection && speed < position.getDist(hero.getPosition())) hero.health -= damage[0]/2;
         else  hero.health -= damage[0];
         if (hero.health <= 0) {
             hero.health = 0;
