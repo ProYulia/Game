@@ -6,13 +6,15 @@ import OOP.Characters.Position;
 import OOP.Main;
 
 import java.util.Collections;
+import java.util.Formatter;
 
 
 public class ConsoleView {
+
     private static final String TOP = "\u256d\u2500" +
-            String.join("\u2500", Collections.nCopies(9, "\u252C")) + "\u2500\u256E";
+            String.join("\u2500", Collections.nCopies(9, " ")) + "\u2500\u256E";
     private static final String BOTTOM = "\u2570\u2500" +
-            String.join("\u2500", Collections.nCopies(9, "\u2534")) + "\u2500\u256F";
+            String.join("\u2500", Collections.nCopies(9, " ")) + "\u2500\u256F";
 
     public static void viewTop() {
         System.out.println(TOP);
@@ -28,12 +30,12 @@ public class ConsoleView {
             for (int j = 0; j < 10; j++) {
                 System.out.print(getChar(new Position(i,j)));
             }
-            System.out.print("-> " + Main.whiteSide.get(i).getInfo() +
-             "\t" + progressBar((int)Main.whiteSide.get(i).getHealth(), (int)Main.whiteSide.get(i).getMaxHealth()) +
-             "\t | " + Main.darkSide.get(i).getInfo() + "\t" +
-            progressBar((int)Main.darkSide.get(i).getHealth(), (int)Main.darkSide.get(i).getMaxHealth()));
-            System.out.println();
-
+            System.out.print("|");
+            String str1 = "   " + Main.whiteSide.get(i).getInfo();
+            String str2 = progressBar((int)Main.whiteSide.get(i).getHealth(),(int)Main.whiteSide.get(i).getMaxHealth());
+            String str3 = "   " + Main.darkSide.get(i).getInfo();
+            String str4 = progressBar((int)Main.darkSide.get(i).getHealth(), (int)Main.darkSide.get(i).getMaxHealth());
+            System.out.format("%-26s  %20s %26s %20s \n", str1, str2, str3, str4);
         }
         viewFooter();
     }
@@ -42,7 +44,7 @@ public class ConsoleView {
     }
 
     public static String getChar(Position position) {
-        String str = "| ";
+        String str = "  ";
         for (int i = 0; i < 10; i++) {
             boolean alive = true;
             if (Main.whiteSide.get(i).getPosition().isEqual(position)) {
@@ -54,8 +56,8 @@ public class ConsoleView {
             }
             if (Main.darkSide.get(i).getPosition().isEqual(position) && alive) {
                 if (Main.darkSide.get(i).getState().equals(States.DEAD))
-                    str = "|" + AnsiColors.ANSI_RED + getFirstLetter(Main.darkSide.get(i)) + AnsiColors.ANSI_RESET + "|";
-                else str = "|" + AnsiColors.ANSI_GREEN + getFirstLetter(Main.darkSide.get(i)) + AnsiColors.ANSI_RESET + "|";
+                    str = " " + AnsiColors.ANSI_RED + getFirstLetter(Main.darkSide.get(i)) + AnsiColors.ANSI_RESET;
+                else str = " " + AnsiColors.ANSI_GREEN + getFirstLetter(Main.darkSide.get(i)) + AnsiColors.ANSI_RESET;
             }
         }
 
