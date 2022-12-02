@@ -4,6 +4,7 @@ import OOP.Abstract.Base;
 import OOP.Abstract.States;
 import OOP.Characters.Position;
 import OOP.Main;
+
 import java.util.Collections;
 
 
@@ -33,7 +34,6 @@ public class ConsoleView {
             progressBar((int)Main.darkSide.get(i).getHealth(), (int)Main.darkSide.get(i).getMaxHealth()));
             System.out.println();
 
-
         }
         viewFooter();
     }
@@ -58,22 +58,20 @@ public class ConsoleView {
                 else str = "|" + AnsiColors.ANSI_GREEN + getFirstLetter(Main.darkSide.get(i)) + AnsiColors.ANSI_RESET + "|";
             }
         }
+
         return str;
     }
 
     public static String progressBar(int remain, int total) {
         int maxBarSize = 10;
-        int remainProcent = ((100*remain)/total/maxBarSize);
+        int remainPercent = ((100*remain)/total/maxBarSize);
         char defaultChar = '-';
         String icon = "*";
         String bar = new String(new char[maxBarSize]).replace('\0', defaultChar) + "]";
-        StringBuilder barDone = new StringBuilder();
-        barDone.append("[");
-        for (int i = 0; i < remainProcent; i++) {
-            barDone.append(icon);
-        }
-        String barRemain = bar.substring(remainProcent);
-        return barDone+barRemain+" "+remainProcent*10+"%";
+        String barDone = "[" +
+                icon.repeat(Math.max(0, remainPercent));
+        String barRemain = bar.substring(remainPercent);
+        return barDone +barRemain+" "+remainPercent*10+"%";
 
     }
 }
