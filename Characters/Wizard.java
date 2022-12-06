@@ -14,8 +14,4 @@ public class Wizard extends Healer {
         super.position = new Position(x, y);
     }
 
-    @Override
-    public void step(ArrayList<Base> group) {
-
-    }
 }
